@@ -1,0 +1,124 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Everett",
+      "role": "body"
+    },
+    {
+      "family": "Everett-Light",
+      "role": "body"
+    },
+    {
+      "family": "Everett-Medium",
+      "role": "heading"
+    }
+  ],
+  "colors": {
+    "primary": "#7A542E",
+    "secondary": "#2D2D2D",
+    "accent": "#7A542E",
+    "background": "#000000",
+    "textPrimary": "#FFFFFF",
+    "link": "#0C2340"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Everett",
+      "heading": "Everett-Medium"
+    },
+    "fontStacks": {
+      "heading": [
+        "Everett",
+        "sans-serif"
+      ],
+      "body": [
+        "Everett",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "Everett",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "64px",
+      "h2": "92px",
+      "body": "11px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "4px"
+  },
+  "components": {
+    "buttonPrimary": {
+      "background": "#FFC845",
+      "textColor": "#000000",
+      "borderRadius": "0px",
+      "borderRadiusCorners": {
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px"
+      },
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "https://www.maserati.com/etc.clientlibs/maserati/clientlibs/clientlib-vendorRedesign/resources/img/trident_mobile_white.svg",
+    "favicon": "https://www.maserati.com/content/dam/maserati/international/favicon/favicon_redesign.ico",
+    "ogImage": null,
+    "logoHref": "/global/en",
+    "logoAlt": "Maserati Logo"
+  },
+  "__llm_logo_reasoning": {
+    "selectedIndex": 7,
+    "reasoning": "Selected #7 because it is visible, has an alt text matching the brand ('Maserati Logo'), and is of medium size, making it the most suitable candidate for the brand logo.",
+    "confidence": 0.85,
+    "source": "llm"
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 0,
+      "text": "Get in touch",
+      "reasoning": "Button #0 ('Get in touch') is likely the primary CTA due to its action-oriented text and vibrant brand color (#FFC845), which is consistent with primary CTA design."
+    },
+    "secondary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "Both buttons share the same background color (#FFC845), making it impossible to select a secondary button with a different color."
+    },
+    "confidence": 0.9
+  },
+  "personality": {
+    "tone": "professional",
+    "energy": "high",
+    "targetAudience": "Luxury car enthusiasts and potential buyers"
+  },
+  "designSystem": {
+    "framework": "custom",
+    "componentLibrary": ""
+  },
+  "confidence": {
+    "buttons": 0.9,
+    "colors": 0.95,
+    "overall": 0.925
+  },
+  "__llm_metadata": {
+    "logoSelection": {
+      "llmCalled": true,
+      "llmSucceeded": true,
+      "finalSource": "llm",
+      "rawLogoSelection": {
+        "selectedLogoIndex": 7,
+        "selectedLogoReasoning": "Selected #7 because it is visible, has an alt text matching the brand ('Maserati Logo'), and is of medium size, making it the most suitable candidate for the brand logo.",
+        "confidence": 0.85
+      }
+    },
+    "buttonClassification": {
+      "llmCalled": true,
+      "llmSucceeded": true
+    }
+  }
+}

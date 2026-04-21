@@ -1,0 +1,80 @@
+{
+  "colorScheme": "dark",
+  "fonts": [
+    {
+      "family": "Everett",
+      "role": "body"
+    },
+    {
+      "family": "Everett-Light",
+      "role": "body"
+    },
+    {
+      "family": "Everett-Medium",
+      "role": "heading"
+    }
+  ],
+  "colors": {
+    "primary": "#7A542E",
+    "secondary": "#2D2D2D",
+    "accent": "#7A542E",
+    "background": "#000000",
+    "textPrimary": "#FFFFFF",
+    "link": "#0C2340",
+    "gold": "#FFC845"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Everett",
+      "heading": "Everett-Medium"
+    },
+    "fontStacks": {
+      "heading": ["Outfit", "Everett", "sans-serif"],
+      "body": ["Outfit", "Everett", "sans-serif"],
+      "paragraph": ["Outfit", "Everett", "sans-serif"]
+    },
+    "fontSizes": {
+      "h1": "64px",
+      "h2": "92px",
+      "body": "16px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "0px"
+  },
+  "components": {
+    "buttonPrimary": {
+      "background": "#FFC845",
+      "textColor": "#000000",
+      "borderRadius": "0px",
+      "shadow": "none"
+    },
+    "buttonSecondary": {
+      "background": "transparent",
+      "textColor": "#FFFFFF",
+      "borderRadius": "0px",
+      "border": "1px solid rgba(255,255,255,0.3)",
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "/logo.svg",
+    "favicon": "/favicon.ico",
+    "ogImage": null,
+    "logoAlt": "Benefit Magazine"
+  },
+  "personality": {
+    "tone": "premium, authoritative, sophisticated",
+    "energy": "calm, confident",
+    "targetAudience": "CEOs, investors, luxury travelers, high-net-worth individuals"
+  },
+  "brand": {
+    "name": "Benefit",
+    "tagline": "Where business meets distinction.",
+    "description": "Premium business and lifestyle media platform connecting influential audiences with leading brands through curated content, high-level events, and strategic visibility.",
+    "distribution": "Airport taxis, 5-star hotels, fine-dining restaurants, premium venues",
+    "publication": "Quarterly business magazine",
+    "events": "Benefit Talks — high-level business networking events"
+  }
+}

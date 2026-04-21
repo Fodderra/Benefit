@@ -1,0 +1,79 @@
+{
+  "nav": {
+    "magazine": "Magazine",
+    "events": "Events",
+    "digital": "Digital",
+    "blog": "Blog",
+    "partners": "Partners",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Premium Business & Lifestyle Media Platform",
+    "cta_magazine": "Read Magazine",
+    "cta_partner": "Become a Partner",
+    "scroll": "Scroll"
+  },
+  "ticker": ["Lifestyle", "Influence", "Business", "Fashion", "Hospitality", "Gastronomy"],
+  "gallery": "Gallery",
+  "whereYouFindUs": {
+    "label": "Where You Find Us",
+    "channels": [
+      { "title": "Bene Exclusive", "sub": "Luxury Fleet" },
+      { "title": "Tbilisi Airport", "sub": "Official Taxi" },
+      { "title": "Hotel Chain", "sub": "5-Star & Boutique Hotels" },
+      { "title": "Premium Venues", "sub": "& Dining Spaces" }
+    ]
+  },
+  "magazine": {
+    "label": "Benefit",
+    "sublabel": "Magazine",
+    "body": "Step into luxury — Reach Georgia's Most Influential Audience, a quarterly business publication distributed within a carefully selected premium ecosystem. The magazine is placed in the company's luxury fleet, including official airport taxis, partner 5-star hotels, fine-dining restaurants, and distinguished premium venues.",
+    "cta": "Read More"
+  },
+  "talks": {
+    "label": "Benefit",
+    "sublabel": "Talks",
+    "body": "Beyond print, Benefit Talks elevates the platform into the physical world: a high-level business event bringing together industry leaders, entrepreneurs, and premium brands — creating genuine connections and strengthening the bond between brands and their target audience.",
+    "bullet1": "Official part of the event with speakers",
+    "bullet2": "After Party",
+    "cta": "Read More"
+  },
+  "speakers": { "label": "Event Speakers" },
+  "digital": {
+    "label": "Digital &",
+    "sublabel": "Video",
+    "body": "Benefit Digital specializes in premium video storytelling designed for ambitious brands. We create high-quality visual content that elevates brand identity and drives meaningful engagement — from brand films and interviews to campaign videos and event coverage.",
+    "cta": "Read More",
+    "sub": "The Digital Media"
+  },
+  "articles": {
+    "label": "Featured Articles",
+    "viewAll": "View All Articles →"
+  },
+  "partners": {
+    "heading": "Partners"
+  },
+  "ecosystem": {
+    "heading": "Become Part\nOf The\nEcosystem",
+    "body": "Join Georgia's most influential business and lifestyle platform. Meet premium customers across print, live events, and digital.",
+    "cta": "Join Us"
+  },
+  "contact": {
+    "heading": "Get in Touch With Us",
+    "body": "Have questions or feedback? Contact us today to learn how we can support your business applications.",
+    "formLabel": "Contact us",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "namePh": "Your name",
+    "emailPh": "your@email.com",
+    "phonePh": "+995 ...",
+    "messagePh": "Your message",
+    "submit": "Submit"
+  },
+  "footer": {
+    "rights": "© 2025 Benefit. All rights reserved.",
+    "sub": "Premium Business & Lifestyle Media"
+  }
+}
