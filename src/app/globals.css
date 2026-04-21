@@ -1,7 +1,7 @@
-@import "tailwindcss";
-
 /* Outfit (Latin) + Noto Sans Georgian — combined request, single render-blocking call */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
 
 :root {
   --bg-primary: #000000;
