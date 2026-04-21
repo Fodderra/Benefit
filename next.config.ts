@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  eslint: {
-    ignoreDuringBuilds: false,
-    dirs: ["src"],
-  },
 };
 
 export default withNextIntl(nextConfig);

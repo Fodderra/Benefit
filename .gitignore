@@ -13,9 +13,6 @@ build/
 .env.local
 .env.*.local
 
-# ── Framer reference components (copy-paste only, not part of the build) ─────
-framer-components/
-
 # ── Claude Code internal state (not project files) ───────────────────────────
 .claude/
 
