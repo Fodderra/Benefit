@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
@@ -13,6 +13,129 @@ import { Navigation } from '@/components/Navigation';
 gsap.registerPlugin(ScrollTrigger);
 
 const FRAME_COUNT = 83;
+
+const ACCORDION_CARDS = [
+  { label: 'Benefit Magazine', img: '/Gallery/Benefit/Category/magazine1.png', href: '/magazine' },
+  { label: 'Events',           img: '/Gallery/Benefit/Category/2.png',         href: '/events'  },
+  { label: 'Digital & Video',  img: '/Gallery/Benefit/Category/3.png',         href: '/digital' },
+  { label: 'Television',       img: '/Gallery/Benefit/Category/4.png',         href: '#'        },
+];
+
+function HoverAccordion() {
+  const [active, setActive] = useState<number | null>(null);
+
+  return (
+    <div style={{ display: 'flex', height: '600px', background: '#000', overflow: 'hidden' }}>
+      {ACCORDION_CARDS.map((card, i) => {
+        const isActive = active === i;
+        const isDimmed = active !== null && !isActive;
+        return (
+          <motion.div
+            key={i}
+            animate={{ flexGrow: isActive ? 2.5 : 1 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            onHoverStart={() => setActive(i)}
+            onHoverEnd={() => setActive(null)}
+            style={{
+              position: 'relative',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              borderRight: i < ACCORDION_CARDS.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none',
+              flexShrink: 0,
+              flexBasis: 0,
+            }}
+          >
+            {/* Background image */}
+            <motion.div
+              animate={{
+                filter: isDimmed ? 'grayscale(1)' : 'grayscale(0)',
+                opacity: isDimmed ? 0.45 : 1,
+                scale: isActive ? 1.04 : 1,
+              }}
+              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              style={{ position: 'absolute', inset: 0 }}
+            >
+              <Image
+                src={card.img}
+                alt={card.label}
+                fill
+                sizes="(max-width: 768px) 100vw, 25vw"
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+              />
+            </motion.div>
+
+            {/* Dark gradient overlay */}
+            <div style={{
+              position: 'absolute', inset: 0,
+              background: isActive
+                ? 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)'
+                : 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 100%)',
+              transition: 'background 0.6s ease',
+            }} />
+
+            {/* Label */}
+            <div style={{
+              position: 'absolute', bottom: 0, left: 0, right: 0,
+              padding: '32px 28px',
+              display: 'flex', flexDirection: 'column', gap: '10px',
+            }}>
+              {/* Vertical label shown when collapsed */}
+              <motion.span
+                animate={{ opacity: isActive ? 0 : 1 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em',
+                  textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)',
+                  writingMode: 'vertical-rl', transform: 'rotate(180deg)',
+                  alignSelf: 'center', marginBottom: '8px',
+                  position: 'absolute', bottom: '32px', left: '50%',
+                  translate: '-50% 0',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {card.label}
+              </motion.span>
+
+              {/* Expanded label */}
+              <motion.div
+                animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 12 }}
+                transition={{ duration: 0.35, delay: isActive ? 0.15 : 0 }}
+              >
+                <p style={{
+                  fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.2em',
+                  textTransform: 'uppercase', color: '#A38560', marginBottom: '10px',
+                }}>
+                  Benefit
+                </p>
+                <h3 style={{
+                  fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)', fontWeight: 700,
+                  letterSpacing: '-0.02em', color: '#FFFFFF', lineHeight: 1.1,
+                  marginBottom: '20px', textTransform: 'uppercase',
+                }}>
+                  {card.label}
+                </h3>
+                {card.href !== '#' && (
+                  <a
+                    href={card.href}
+                    style={{
+                      display: 'inline-block', fontSize: '0.7rem', fontWeight: 600,
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                      color: '#fff', textDecoration: 'none',
+                      borderBottom: '1px solid rgba(255,255,255,0.4)',
+                      paddingBottom: '3px',
+                    }}
+                  >
+                    Explore →
+                  </a>
+                )}
+              </motion.div>
+            </div>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Home() {
   const t = useTranslations();
@@ -81,20 +204,39 @@ export default function Home() {
       </section>
 
       {/* ── TICKER ── */}
-      <div style={{ background: '#FFFFFF', padding: '48px 0', overflow: 'hidden', borderTop: '2px solid #000000', borderBottom: '2px solid #000000' }}>
-        <motion.div
-          style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', width: 'max-content' }}
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 20, ease: 'linear', repeat: Infinity }}
-        >
-          {[...tickerItems, ...tickerItems].map((item, i) => (
-            <span key={i} style={{ display: 'inline-flex', alignItems: 'center' }}>
-              <span style={{ fontSize: '3rem', fontWeight: 900, letterSpacing: '-0.04em', textTransform: 'uppercase', color: '#000000', padding: '0 32px' }}>{item}</span>
-              <span style={{ color: '#000000', fontSize: '3rem', fontWeight: 900, lineHeight: 1 }}>•</span>
-            </span>
-          ))}
-        </motion.div>
+<div style={{ 
+  background: '#FFFFFF !important', 
+  height: '50px', //
+  display: 'flex',
+  alignItems: 'center',
+  overflow: 'hidden', 
+  borderTop: '2px solid #000000', 
+  borderBottom: '2px solid #000000',
+  margin: '20px 0'
+}}>
+  <motion.div
+    style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}
+    animate={{ x: ['0%', '-50%'] }}
+    transition={{ duration: 15, ease: 'linear', repeat: Infinity }}
+  >
+    {[...tickerItems, ...tickerItems].map((item, i) => (
+      <div key={i} style={{ display: 'flex', alignItems: 'center', lineHeight: '1' }}>
+        <span style={{ 
+          fontSize: '18px', // 
+          fontWeight: 350, 
+          letterSpacing: '-0.04em', 
+          textTransform: 'uppercase', 
+          color: '#000000', 
+          padding: '0 20px' 
+        }}>{item}</span>
+        <span style={{ color: '#000000', fontSize: '20px' }}>•</span>
       </div>
+    ))}
+  </motion.div>
+</div>
+
+      {/* ── HORIZONTAL ACCORDION ── */}
+      <HoverAccordion />
 
       {/* ── SCROLL ANIMATION ── */}
       <section id="magazine" style={{ background: '#000000', position: 'relative', zIndex: 0 }}>
@@ -134,7 +276,7 @@ export default function Home() {
             </a>
           </div>
           <div className="reveal-card" style={{ position: 'relative', minHeight: '600px' }}>
-            <Image src="/first-frame.png" alt="Benefit Magazine" fill sizes="40vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} />
+            <Image src="/Gallery/Benefit/Category/magazine1.png" alt="Benefit Magazine" fill sizes="40vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, #000000 10%, rgba(0,0,0,0.55) 55%, transparent 100%)', pointerEvents: 'none' }} />
           </div>
         </div>
@@ -143,34 +285,46 @@ export default function Home() {
       {/* ── PANORAMA SLIDER ── */}
       <PanoramaSlider />
 
-      {/* ── BENEFIT TALKS ── */}
-      <section style={{ background: '#000000', overflow: 'hidden', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 40%', alignItems: 'stretch' }}>
-          <div style={{ paddingTop: '120px', paddingBottom: '120px', paddingRight: '80px', paddingLeft: 'max(48px, calc((100vw - 1280px) / 2 + 48px))' }}>
-            <h2 className="reveal-text" style={{ margin: '0 0 36px' }}>
-              <span style={{ display: 'block', fontSize: 'clamp(3rem, 5.5vw, 6.5rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1, color: '#FFFFFF' }}>{t('talks.label')}</span>
-              <span style={{ display: 'block', fontSize: 'clamp(3rem, 5.5vw, 6.5rem)', fontWeight: 300, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1, color: '#FFFFFF' }}>{t('talks.sublabel')}</span>
-            </h2>
-            <p className="reveal-text" style={{ color: 'rgba(255,255,255,0.72)', lineHeight: 1.78, marginBottom: '24px', maxWidth: '520px', fontSize: '1rem' }}>{t('talks.body')}</p>
-            <div className="reveal-text" style={{ marginBottom: '36px' }}>
-              {[t('talks.bullet1'), t('talks.bullet2')].map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem' }}>
-                  <div style={{ width: '4px', height: '4px', background: 'rgba(255,255,255,0.3)', borderRadius: '50%', flexShrink: 0 }} />
-                  {item}
-                </div>
-              ))}
-            </div>
-            <a href={`/${locale}/events`} className="reveal-text" style={{ display: 'inline-block', background: 'transparent', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.5)', padding: '13px 32px', fontSize: '0.82rem', fontWeight: 500, letterSpacing: '0.04em', textDecoration: 'none', transition: 'border-color 0.2s' }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = '#fff')}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)')}>
-              {t('talks.cta')}
-            </a>
+     {/* ── BENEFIT TALKS ── */}
+<section style={{ background: '#000000', overflow: 'hidden', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 40%', alignItems: 'stretch' }}>
+    <div style={{ paddingTop: '120px', paddingBottom: '120px', paddingRight: '80px', paddingLeft: 'max(48px, calc((100vw - 1280px) / 2 + 48px))' }}>
+      <h2 className="reveal-text" style={{ margin: '0 0 36px' }}>
+        <span style={{ display: 'block', fontSize: 'clamp(3rem, 5.5vw, 6.5rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1, color: '#FFFFFF' }}>{t('talks.label')}</span>
+        <span style={{ display: 'block', fontSize: 'clamp(3rem, 5.5vw, 6.5rem)', fontWeight: 300, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1, color: '#FFFFFF' }}>{t('talks.sublabel')}</span>
+      </h2>
+      <p className="reveal-text" style={{ color: 'rgba(255,255,255,0.72)', lineHeight: 1.78, marginBottom: '24px', maxWidth: '520px', fontSize: '1rem' }}>{t('talks.body')}</p>
+      <div className="reveal-text" style={{ marginBottom: '36px' }}>
+        {[t('talks.bullet1'), t('talks.bullet2')].map((item, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem' }}>
+            <div style={{ width: '4px', height: '4px', background: 'rgba(255,255,255,0.3)', borderRadius: '50%', flexShrink: 0 }} />
+            {item}
           </div>
-          <div className="reveal-card" style={{ position: 'relative', minHeight: '600px', background: '#0c0c0c' }}>
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, #000000 10%, rgba(0,0,0,0.55) 55%, transparent 100%)', pointerEvents: 'none' }} />
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
+      <a href={`/${locale}/events`} className="reveal-text" style={{ display: 'inline-block', background: 'transparent', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.5)', padding: '13px 32px', fontSize: '0.82rem', fontWeight: 500, letterSpacing: '0.04em', textDecoration: 'none', transition: 'border-color 0.2s' }}
+        onMouseEnter={e => (e.currentTarget.style.borderColor = '#fff')}
+        onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)')}>
+        {t('talks.cta')}
+      </a>
+    </div>
+
+    {/* აქ დაემატა სურათი */}
+    <div className="reveal-card" style={{ position: 'relative', minHeight: '600px', background: '#0c0c0c' }}>
+      <Image 
+        src="/Gallery/Benefit/Category/2.png" 
+        alt="Benefit Talks Event" 
+        fill 
+        sizes="40vw" 
+        style={{ 
+          objectFit: 'cover', // 
+          objectPosition: 'center center' 
+        }} 
+      />
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, #000000 10%, rgba(0,0,0,0.55) 55%, transparent 100%)', pointerEvents: 'none' }} />
+    </div>
+  </div>
+</section>
 
       {/* ── EVENT SPEAKERS ── */}
       <section style={{ background: '#000000', padding: '80px 0 120px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
