@@ -21,125 +21,12 @@ const ACCORDION_CARDS = [
   { label: 'Television',       img: '/Gallery/Benefit/Category/4.png',         href: '#'        },
 ];
 
-function HoverAccordion() {
-  const [active, setActive] = useState<number | null>(null);
-
-  return (
-    <div style={{ display: 'flex', height: '600px', background: '#000', overflow: 'hidden' }}>
-      {ACCORDION_CARDS.map((card, i) => {
-        const isActive = active === i;
-        const isDimmed = active !== null && !isActive;
-        return (
-          <motion.div
-            key={i}
-            animate={{ flexGrow: isActive ? 2.5 : 1 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-            onHoverStart={() => setActive(i)}
-            onHoverEnd={() => setActive(null)}
-            style={{
-              position: 'relative',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              borderRight: i < ACCORDION_CARDS.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none',
-              flexShrink: 0,
-              flexBasis: 0,
-            }}
-          >
-            {/* Background image */}
-            <motion.div
-              animate={{
-                filter: isDimmed ? 'grayscale(1)' : 'grayscale(0)',
-                opacity: isDimmed ? 0.45 : 1,
-                scale: isActive ? 1.04 : 1,
-              }}
-              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-              style={{ position: 'absolute', inset: 0 }}
-            >
-              <Image
-                src={card.img}
-                alt={card.label}
-                fill
-                sizes="(max-width: 768px) 100vw, 25vw"
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
-              />
-            </motion.div>
-
-            {/* Dark gradient overlay */}
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: isActive
-                ? 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)'
-                : 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 100%)',
-              transition: 'background 0.6s ease',
-            }} />
-
-            {/* Label */}
-            <div style={{
-              position: 'absolute', bottom: 0, left: 0, right: 0,
-              padding: '32px 28px',
-              display: 'flex', flexDirection: 'column', gap: '10px',
-            }}>
-              {/* Vertical label shown when collapsed */}
-              <motion.span
-                animate={{ opacity: isActive ? 0 : 1 }}
-                transition={{ duration: 0.3 }}
-                style={{
-                  fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em',
-                  textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)',
-                  writingMode: 'vertical-rl', transform: 'rotate(180deg)',
-                  alignSelf: 'center', marginBottom: '8px',
-                  position: 'absolute', bottom: '32px', left: '50%',
-                  translate: '-50% 0',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {card.label}
-              </motion.span>
-
-              {/* Expanded label */}
-              <motion.div
-                animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 12 }}
-                transition={{ duration: 0.35, delay: isActive ? 0.15 : 0 }}
-              >
-                <p style={{
-                  fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.2em',
-                  textTransform: 'uppercase', color: '#A38560', marginBottom: '10px',
-                }}>
-                  Benefit
-                </p>
-                <h3 style={{
-                  fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)', fontWeight: 700,
-                  letterSpacing: '-0.02em', color: '#FFFFFF', lineHeight: 1.1,
-                  marginBottom: '20px', textTransform: 'uppercase',
-                }}>
-                  {card.label}
-                </h3>
-                {card.href !== '#' && (
-                  <a
-                    href={card.href}
-                    style={{
-                      display: 'inline-block', fontSize: '0.7rem', fontWeight: 600,
-                      letterSpacing: '0.12em', textTransform: 'uppercase',
-                      color: '#fff', textDecoration: 'none',
-                      borderBottom: '1px solid rgba(255,255,255,0.4)',
-                      paddingBottom: '3px',
-                    }}
-                  >
-                    Explore →
-                  </a>
-                )}
-              </motion.div>
-            </div>
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
-
 export default function Home() {
   const t = useTranslations();
   const locale = useLocale();
+
+  // ── Accordion state (lives inside Home so locale/t are always in scope) ──
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -236,7 +123,92 @@ export default function Home() {
 </div>
 
       {/* ── HORIZONTAL ACCORDION ── */}
-      <HoverAccordion />
+      {/* Outer section: controls vertical distance from Ticker (padding-top) and from next section (padding-bottom) */}
+      <section style={{ background: '#000000', paddingTop: '120px', paddingBottom: '120px' }}>
+        {/* Inner wrapper: controls total width of the cards (maxWidth) and centers them (margin) */}
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 48px' }}>
+          {/* Cards row: controls card height (height) and gap between cards (gap) */}
+          <div style={{ display: 'flex', height: '600px', gap: '2px', overflow: 'hidden' }}>
+            {ACCORDION_CARDS.map((card, i) => {
+              const isActive = activeCard === i;
+              const isDimmed = activeCard !== null && !isActive;
+              return (
+                <motion.div
+                  key={i}
+                  // ↓ expansion speed: change duration (seconds) and ease curve
+                  animate={{ flexGrow: isActive ? 2.5 : 1 }}
+                  transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                  onHoverStart={() => setActiveCard(i)}
+                  onHoverEnd={() => setActiveCard(null)}
+                  style={{ position: 'relative', overflow: 'hidden', cursor: 'pointer', flexShrink: 0, flexBasis: 0 }}
+                >
+                  {/* Background image with grayscale + scale effect */}
+                  <motion.div
+                    animate={{
+                      filter: isDimmed ? 'grayscale(1)' : 'grayscale(0)',
+                      opacity: isDimmed ? 0.45 : 1,
+                      scale: isActive ? 1.04 : 1,
+                    }}
+                    transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                    style={{ position: 'absolute', inset: 0 }}
+                  >
+                    <Image
+                      src={card.img}
+                      alt={card.label}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    />
+                  </motion.div>
+
+                  {/* Dark gradient overlay */}
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: isActive
+                      ? 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)'
+                      : 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 100%)',
+                    transition: 'background 0.6s ease',
+                  }} />
+
+                  {/* Collapsed: vertical label */}
+                  <motion.span
+                    animate={{ opacity: isActive ? 0 : 1 }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      position: 'absolute', bottom: '32px', left: '50%',
+                      translate: '-50% 0', whiteSpace: 'nowrap',
+                      fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em',
+                      textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)',
+                      writingMode: 'vertical-rl', transform: 'rotate(180deg)',
+                    }}
+                  >
+                    {card.label}
+                  </motion.span>
+
+                  {/* Expanded: title + link */}
+                  <motion.div
+                    animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 12 }}
+                    transition={{ duration: 0.35, delay: isActive ? 0.15 : 0 }}
+                    style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 28px' }}
+                  >
+                    <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#A38560', marginBottom: '10px' }}>
+                      Benefit
+                    </p>
+                    <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)', fontWeight: 700, letterSpacing: '-0.02em', color: '#FFFFFF', lineHeight: 1.1, marginBottom: '20px', textTransform: 'uppercase' }}>
+                      {card.label}
+                    </h3>
+                    {card.href !== '#' && (
+                      <a href={`/${locale}${card.href}`} style={{ display: 'inline-block', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#fff', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.4)', paddingBottom: '3px' }}>
+                        Explore →
+                      </a>
+                    )}
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* ── SCROLL ANIMATION ── */}
       <section id="magazine" style={{ background: '#000000', position: 'relative', zIndex: 0 }}>
