@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations, useLocale } from 'next-intl';
@@ -80,15 +81,19 @@ export default function Home() {
       </section>
 
       {/* ── TICKER ── */}
-      <div style={{ background: '#FFFFFF', padding: '11px 0', overflow: 'hidden', whiteSpace: 'nowrap', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', animation: 'ticker 28s linear infinite' }}>
-          {[...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
-            <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '0' }}>
-              <span style={{ fontSize: '0.65rem', fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#000000', padding: '0 18px' }}>{item}</span>
-              <span style={{ color: 'rgba(0,0,0,0.35)', fontSize: '0.65rem' }}>·</span>
+      <div style={{ background: '#FFFFFF', padding: '48px 0', overflow: 'hidden', borderTop: '2px solid #000000', borderBottom: '2px solid #000000' }}>
+        <motion.div
+          style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', width: 'max-content' }}
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 20, ease: 'linear', repeat: Infinity }}
+        >
+          {[...tickerItems, ...tickerItems].map((item, i) => (
+            <span key={i} style={{ display: 'inline-flex', alignItems: 'center' }}>
+              <span style={{ fontSize: '3rem', fontWeight: 900, letterSpacing: '-0.04em', textTransform: 'uppercase', color: '#000000', padding: '0 32px' }}>{item}</span>
+              <span style={{ color: '#000000', fontSize: '3rem', fontWeight: 900, lineHeight: 1 }}>•</span>
             </span>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* ── SCROLL ANIMATION ── */}
