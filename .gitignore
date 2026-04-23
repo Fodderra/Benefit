@@ -24,8 +24,11 @@ Thumbs.db
 .idea/
 .vscode/settings.json
 
+# ── Heavy local-only asset folders ───────────────────────────────────────────
+assets/
+dist/
+
 # ── Office temp / lock files ──────────────────────────────────────────────────
-assets/~$*
 ~$*
 
 # ── Logs ──────────────────────────────────────────────────────────────────────
@@ -39,4 +42,6 @@ yarn-error.log*
 next-env.d.ts
 
 # ── Vercel ────────────────────────────────────────────────────────────────────
+.vercel
+
 .vercel

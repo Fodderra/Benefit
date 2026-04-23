@@ -4,11 +4,18 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 
 const SLIDES = [
-  '/frames/frame-001.webp',
-  '/frames/frame-021.webp',
-  '/frames/frame-042.webp',
-  '/frames/frame-063.webp',
-  '/frames/frame-083.webp',
+  '/frames/Slider/1.png',
+  '/frames/Slider/2.png',
+  '/frames/Slider/3.png',
+  '/frames/Slider/4.png',
+  '/frames/Slider/5.png',
+  '/frames/Slider/6.png',
+  '/frames/Slider/7.png',
+  '/frames/Slider/8.png',
+  '/frames/Slider/9.png',
+   '/frames/Slider/10.png',
+  '/frames/Slider/11.png',
+ 
 ];
 
 interface CardDims { w: number; h: number; }
@@ -31,6 +38,7 @@ export function PanoramaSlider() {
   const [active, setActive] = useState(2);
   const [dims, setDims] = useState<CardDims>(getCardDims);
   const dragRef = useRef({ startX: 0, dragging: false, moved: false });
+  const pausedRef = useRef(false);
 
   useEffect(() => {
     const onResize = () => setDims(getCardDims());
@@ -39,20 +47,26 @@ export function PanoramaSlider() {
   }, []);
 
   const go = useCallback((dir: number) => {
-    setActive(prev => Math.max(0, Math.min(SLIDES.length - 1, prev + dir)));
+    setActive(prev => (prev + dir + SLIDES.length) % SLIDES.length);
   }, []);
 
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!pausedRef.current) go(1);
+    }, 1500);
+    return () => clearInterval(id);
+  }, [go]);
+
   function getTransform(i: number) {
-    const offset = i - active;
+    const n = SLIDES.length;
+    let offset = i - active;
+    // Wrap to shortest circular path so last slide sits left of first
+    if (offset > n / 2) offset -= n;
+    if (offset <= -n / 2) offset += n;
+
     const abs = Math.abs(offset);
     if (abs >= OFFSETS.length) {
-      const cfg = OFFSETS[OFFSETS.length - 1];
-      const dir = offset > 0 ? 1 : -1;
-      return {
-        transform: `translateX(${dir * cfg.tx}px) rotateY(${dir * cfg.rotY}deg) scale(${cfg.scale})`,
-        opacity: 0,
-        zIndex: 0,
-      };
+      return { transform: 'translateX(0px) rotateY(0deg) scale(1)', opacity: 0, zIndex: 0 };
     }
     const cfg = OFFSETS[abs];
     const dir = offset >= 0 ? 1 : -1;
@@ -96,6 +110,8 @@ export function PanoramaSlider() {
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
+        onMouseEnter={() => { pausedRef.current = true; }}
+        onMouseLeave={() => { pausedRef.current = false; }}
       >
         {/* Left edge fade */}
         <div style={{ position: 'absolute', top: 0, left: 0, width: '15%', height: '100%', background: 'linear-gradient(to right, #000000, transparent)', zIndex: 30, pointerEvents: 'none' }} />
@@ -130,6 +146,7 @@ export function PanoramaSlider() {
                 src={src}
                 alt={`Slide ${i + 1}`}
                 draggable={false}
+                onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none' }}
               />
             </div>

@@ -4,13 +4,12 @@ import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { useLocale } from 'next-intl';
 
-const NAV_KEYS = ['magazine', 'events', 'digital', 'blog', 'partners', 'contact'] as const;
+const NAV_KEYS = ['magazine', 'events', 'digital', 'blog', 'contact'] as const;
 const NAV_HREFS: Record<string, string> = {
   magazine: '/magazine',
   events: '/events',
   digital: '/digital',
   blog: '/blog',
-  partners: '/partners',
   contact: '/contact',
 };
 

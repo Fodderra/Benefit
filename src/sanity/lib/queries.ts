@@ -33,6 +33,17 @@ export const EVENTS_QUERY = `
   }
 `;
 
+export const PARTNERS_QUERY = `
+  *[_type == "partner"] | order(order asc) {
+    _id,
+    name,
+    category,
+    website,
+    featured,
+    "logoUrl": logo.asset->url
+  }
+`;
+
 export const MAGAZINE_QUERY = `
   *[_type == "magazineIssue"] | order(issueNumber desc) {
     _id,

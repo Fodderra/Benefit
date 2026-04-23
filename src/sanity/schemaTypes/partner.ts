@@ -6,7 +6,7 @@ export const partner = defineType({
   type: 'document',
   fields: [
     defineField({ name: 'name', title: 'Brand Name', type: 'string', validation: r => r.required() }),
-    defineField({ name: 'logo', title: 'Logo', type: 'image' }),
+    defineField({ name: 'logo', title: 'Logo', type: 'image', options: { hotspot: true } }),
     defineField({ name: 'website', title: 'Website URL', type: 'url' }),
     defineField({ name: 'category', title: 'Category', type: 'string', options: { list: ['Luxury', 'Hospitality', 'Fashion', 'Finance', 'Tech', 'Other'] } }),
     defineField({ name: 'description', title: 'Description (EN)', type: 'text', rows: 2 }),

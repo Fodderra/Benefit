@@ -1,0 +1,28 @@
+# Heavy local-only folders — never needed by Vercel build
+node_modules
+.next
+.vercel
+.git
+.sanity
+.claude
+
+# Source assets (video, raw images) — frames are already extracted to public/frames/
+assets/
+
+# Sanity & misc build artefacts
+dist/
+
+# Large binary file types anywhere in the repo
+*.mp4
+*.mov
+*.avi
+*.zip
+*.rar
+*.docx
+*.xlsx
+*.pptx
+*.pdf
+
+# Setup scripts — not needed at runtime
+setup.bat
+setup.ps1
