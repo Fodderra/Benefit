@@ -13,6 +13,7 @@ export interface Post {
   date: string;
   readTime?: string;
   excerpt: string;
+  thumbnail?: string;
   coverImage?: { asset?: { url?: string } } | null;
 }
 
@@ -24,7 +25,7 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
   const rest = filtered.slice(1);
 
   function imgSrc(post: Post) {
-    return post.coverImage?.asset?.url ?? null;
+    return post.thumbnail ?? post.coverImage?.asset?.url ?? null;
   }
 
   return (

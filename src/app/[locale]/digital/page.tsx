@@ -3,36 +3,66 @@
 import { useState } from 'react';
 import { Navigation } from '@/components/Navigation';
 
+// ─────────────────────────────────────────────────────────────────────────────
+// VIDEOS — edit this array to manage your portfolio.
+//
+// youtubeId  → plain ID, youtube.com/watch, youtube.com/shorts, or youtu.be URL
+//              Leave '' to show a static placeholder.
+// thumbnail  → path to a cover image, e.g. '/gallery/cover1.jpg'
+//              Leave '' to fall back to a plain dark background.
+// ─────────────────────────────────────────────────────────────────────────────
 const VIDEOS = [
-  { id: 1, title: 'L\'Oréal Georgia — Brand Film 2024', client: "L'Oréal", type: 'Brand Film', duration: '2:34', aspectRatio: '9/16' },
-  { id: 2, title: 'Borjomi — Campaign "Pure Nature"', client: 'Borjomi', type: 'Campaign Video', duration: '1:15', aspectRatio: '16/9' },
-  { id: 3, title: 'Benefit Talks III — Event Coverage', client: 'Benefit', type: 'Event Coverage', duration: '4:22', aspectRatio: '9/16' },
-  { id: 4, title: 'Nexia Georgia — Executive Interview', client: 'Nexia', type: 'Interview', duration: '8:10', aspectRatio: '9/16' },
-  { id: 5, title: 'Danceme — Social Content Package', client: 'Danceme', type: 'Social Content', duration: '0:30', aspectRatio: '1/1' },
-  { id: 6, title: 'Marriott Tbilisi — Venue Showcase', client: 'Marriott', type: 'Brand Film', duration: '3:18', aspectRatio: '9/16' },
-  { id: 7, title: 'Benefit Magazine Q4 — Launch Reel', client: 'Benefit', type: 'Campaign Video', duration: '1:02', aspectRatio: '16/9' },
-  { id: 8, title: 'Premium Brand — Social Reels 2024', client: 'Confidential', type: 'Social Content', duration: '0:15', aspectRatio: '9/16' },
+  { id: 1, title: 'Gumbati Holding — Vake Residence',    client: 'Gumbati',      duration: '2:34', aspectRatio: '9/16',  youtubeId: 'S-ACKlfODQo', thumbnail: 'https://img.youtube.com/vi/S-ACKlfODQo/maxresdefault.jpg' },
+  { id: 2, title: 'Moedani Gastro Station - A Taste of Modern Tbilisi"',    client: 'Borjomi',      duration: '1:15', aspectRatio: '16/9',  youtubeId: 'https://youtube.com/shorts/bb6rRHhotS4?si=EYUiAS3Fyn_uEg9p',             thumbnail: 'https://img.youtube.com/vi/bb6rRHhotS4/maxresdefault.jpg' },
+  { id: 3, title: 'IERI Store - Where Fashion Meets Art & Culture',  client: 'Benefit',      duration: '4:22', aspectRatio: '9/16',  youtubeId: 'https://youtube.com/shorts/bp0rjMccLh4?si=0ojkqcJmZ7vBfTcZ',             thumbnail: 'https://img.youtube.com/vi/bp0rjMccLh4/maxresdefault.jpg' },
+  { id: 4, title: 'Business Partner, "Benefit" section.',  client: 'Benefit',      duration: '4:22', aspectRatio: '9/16',  youtubeId: 'https://www.youtube.com/watch?v=bDYIMrBLKDw',             thumbnail: 'https://img.youtube.com/vi/bDYIMrBLKDw/maxresdefault.jpg' },
+  { id: 5, title: 'Live Your Dream - Bene Exclusive',    client: 'Danceme',      duration: '0:30', aspectRatio: '1/1',   youtubeId: 'https://www.youtube.com/watch?v=4mfJEcg--YA',             thumbnail: 'https://img.youtube.com/vi/4mfJEcg--YA/maxresdefault.jpg' },
+  { id: 6, title: 'KTW Group x Kairos Logistics"',    client: 'Borjomi',      duration: '1:15', aspectRatio: '16/9',  youtubeId: 'https://youtu.be/Hdg6jkbRqQs?si=8LmxH6Bn7W6rXmob',             thumbnail: 'https://img.youtube.com/vi/Hdg6jkbRqQs/maxresdefault.jpg' },
+  { id: 7, title: 'Benefit Magazine Q4 — Launch Reel',   client: 'Benefit',      duration: '1:02', aspectRatio: '16/9',  youtubeId: '',             thumbnail: '' },
+  { id: 8, title: 'Premium Brand — Social Reels 2024',   client: 'Confidential', duration: '0:15', aspectRatio: '9/16',  youtubeId: '',             thumbnail: '' },
+  { id: 9, title: 'Premium Brand — Social Reels 2024',   client: 'Confidential', duration: '0:15', aspectRatio: '9/16',  youtubeId: '',             thumbnail: '' },
+  { id: 10, title: 'Premium Brand — Social Reels 2024',   client: 'Confidential', duration: '0:15', aspectRatio: '9/16',  youtubeId: '',             thumbnail: '' },
+  { id: 11, title: 'Premium Brand — Social Reels 2024',   client: 'Confidential', duration: '0:15', aspectRatio: '9/16',  youtubeId: '',             thumbnail: '' },
+  { id: 12, title: 'Premium Brand — Social Reels 2024',   client: 'Confidential', duration: '0:15', aspectRatio: '9/16',  youtubeId: '',             thumbnail: '' },
 ];
-
-const TYPES = ['All', 'Brand Film', 'Campaign Video', 'Interview', 'Event Coverage', 'Social Content'];
 
 const STATS = [
-  { value: '120+', label: 'Videos Produced' },
-  { value: '45', label: 'Brand Partners' },
-  { value: '8M+', label: 'Combined Views' },
-  { value: '3', label: 'Years of Excellence' },
+  { value: '120+', label: 'Videos Produced'     },
+  { value: '45',   label: 'Brand Partners'      },
+  { value: '8M+',  label: 'Combined Views'      },
+  { value: '3',    label: 'Years of Excellence' },
 ];
 
-export default function DigitalPage() {
-  const [filter, setFilter] = useState('All');
+// Accepts a plain YouTube ID, a youtube.com/shorts/ID URL,
+// a youtube.com/watch?v=ID URL, or a youtu.be/ID URL.
+function getEmbedUrl(raw: string): string | null {
+  const s = raw.trim();
+  if (!s) return null;
 
-  const filtered = filter === 'All' ? VIDEOS : VIDEOS.filter(v => v.type === filter);
+  const shortsMatch = s.match(/shorts\/([^?&/\s]+)/);
+  if (shortsMatch) return `https://www.youtube.com/embed/${shortsMatch[1]}?autoplay=1&mute=0`;
+
+  const watchMatch = s.match(/[?&]v=([^?&/\s]+)/);
+  if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}?autoplay=1&mute=0`;
+
+  const shortlinkMatch = s.match(/youtu\.be\/([^?&/\s]+)/);
+  if (shortlinkMatch) return `https://www.youtube.com/embed/${shortlinkMatch[1]}?autoplay=1&mute=0`;
+
+  if (!s.includes('/') && !s.includes('.')) {
+    return `https://www.youtube.com/embed/${s}?autoplay=1&mute=0`;
+  }
+
+  return null;
+}
+
+export default function DigitalPage() {
+  const [playingId, setPlayingId] = useState<number | null>(null);
 
   return (
     <main style={{ background: '#000000', minHeight: '100vh' }}>
       <Navigation />
 
-      {/* Hero */}
+      {/* ── HERO ── */}
       <section style={{ paddingTop: '160px', paddingBottom: '80px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px' }}>
           <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#A38560', marginBottom: '24px' }}>Benefit</p>
@@ -45,7 +75,7 @@ export default function DigitalPage() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* ── STATS ── */}
       <section style={{ padding: '60px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderLeft: '1px solid rgba(255,255,255,0.07)' }}>
@@ -59,65 +89,82 @@ export default function DigitalPage() {
         </div>
       </section>
 
-      {/* Filter */}
-      <section style={{ padding: '48px 0 32px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px' }}>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            {TYPES.map(type => (
-              <button key={type} onClick={() => setFilter(type)} style={{ background: type === filter ? '#A38560' : 'transparent', color: type === filter ? '#000' : 'rgba(255,255,255,0.45)', border: `1px solid ${type === filter ? '#A38560' : 'rgba(255,255,255,0.15)'}`, padding: '8px 18px', cursor: 'pointer', fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'inherit', transition: 'all 0.2s' }}>
-                {type}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── DYNAMIC VIDEO GRID ── */}
+<section style={{ padding: '0 0 120px' }}>
+  <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px' }}>
+    <div style={{ 
+      display: 'grid', 
+      gridTemplateColumns: 'repeat(3, 1fr)', // 3 სვეტი
+      gap: '20px', 
+      alignItems: 'start' 
+    }}>
+      {VIDEOS.map((video, index) => {
+        // ლოგიკა: პირველი 3 (0,1,2) არის 9/16, შემდეგი 3 (3,4,5) არის 16/9 და ა.შ.
+        const rowIndex = Math.floor(index / 3);
+        const currentAspectRatio = rowIndex % 2 === 0 ? '9/16' : '16/9';
+        
+        const isPlaying = playingId === video.id;
+        const embedUrl = getEmbedUrl(video.youtubeId);
+        const canPlay = embedUrl !== null;
 
-      {/* Vertical Video Grid (Reels style) */}
-      <section style={{ padding: '0 0 120px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px' }}>
-          <div style={{ columns: '3', gap: '12px', columnFill: 'balance' }}>
-            {filtered.map((video) => {
-              const isVertical = video.aspectRatio === '9/16';
-              const isSquare = video.aspectRatio === '1/1';
-              return (
-                <div key={video.id} style={{ breakInside: 'avoid', marginBottom: '12px', display: 'block' }}>
-                  <div style={{ position: 'relative', background: '#111', aspectRatio: video.aspectRatio, overflow: 'hidden', cursor: 'pointer', transition: 'transform 0.3s' }}
-                    onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.01)')}
-                    onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}>
-                    {/* Play button overlay */}
-                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.2)', transition: 'background 0.2s' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.45)')}
-                      onMouseLeave={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.2)')}>
-                      <div style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1.5px solid rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <div style={{ width: 0, height: 0, borderTop: '7px solid transparent', borderBottom: '7px solid transparent', borderLeft: '12px solid rgba(255,255,255,0.8)', marginLeft: '3px' }} />
+        return (
+          <div key={video.id} style={{ width: '100%' }}>
+            <div
+              style={{
+                position: 'relative',
+                background: '#111',
+                aspectRatio: currentAspectRatio, // აქ ხდება მონაცვლეობა
+                overflow: 'hidden',
+                cursor: canPlay && !isPlaying ? 'pointer' : 'default',
+                backgroundImage: `url(${video.thumbnail})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+              onClick={() => { if (canPlay && !isPlaying) setPlayingId(video.id); }}
+            >
+              {isPlaying && embedUrl ? (
+                <iframe
+                  src={embedUrl}
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+                  allow="autoplay; encrypted-media; fullscreen"
+                />
+              ) : (
+                <>
+                  <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.2)' }}>
+                    {canPlay && (
+                      <div style={{ width: '48px', height: '48px', borderRadius: '50%', border: '1.5px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: 0, height: 0, borderTop: '8px solid transparent', borderBottom: '8px solid transparent', borderLeft: '14px solid #fff', marginLeft: '3px' }} />
                       </div>
-                    </div>
-                    {/* Info overlay bottom */}
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '16px 14px', background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}>
-                      <p style={{ fontSize: '0.6rem', color: '#A38560', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px' }}>{video.type}</p>
-                      <p style={{ fontSize: '0.72rem', fontWeight: 600, color: '#fff', lineHeight: 1.3 }}>{video.title}</p>
-                      <p style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.4)', marginTop: '4px' }}>{video.client} · {video.duration}</p>
-                    </div>
+                    )}
                   </div>
-                </div>
-              );
-            })}
+                  
+                  {/* ინფორმაცია ბარათის ბოლოში */}
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px', background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}>
+                    <p style={{ fontSize: '0.75rem', fontWeight: 600, color: '#fff', marginBottom: '4px' }}>{video.title}</p>
+                    <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.5)' }}>{video.client} · {video.duration}</p>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        );
+      })}
+    </div>
+  </div>
+</section>
 
-      {/* Services */}
+      {/* ── SERVICES ── */}
       <section style={{ padding: '80px 0 120px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px' }}>
           <p style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: '48px' }}>Our Services</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>
             {[
-              { title: 'Brand Films', desc: 'Cinematic narratives that define your brand identity and resonate with premium audiences.' },
-              { title: 'Campaign Videos', desc: 'Strategic video campaigns designed to maximize reach and conversion across platforms.' },
-              { title: 'Event Coverage', desc: 'Premium multi-camera event coverage with same-day highlight reels.' },
+              { title: 'Brand Films',          desc: 'Cinematic narratives that define your brand identity and resonate with premium audiences.' },
+              { title: 'Campaign Videos',      desc: 'Strategic video campaigns designed to maximize reach and conversion across platforms.' },
+              { title: 'Event Coverage',       desc: 'Premium multi-camera event coverage with same-day highlight reels.' },
               { title: 'Executive Interviews', desc: 'Polished interview production that positions your leaders as industry voices.' },
-              { title: 'Social Content', desc: 'High-volume, platform-native content packages optimized for engagement.' },
-              { title: 'Aerial & 3D', desc: 'Drone footage and 3D visualization for real estate, hospitality, and luxury brands.' },
+              { title: 'Social Content',       desc: 'High-volume, platform-native content packages optimized for engagement.' },
+              { title: 'Aerial & 3D',          desc: 'Drone footage and 3D visualization for real estate, hospitality, and luxury brands.' },
             ].map((s, i) => (
               <div key={i} style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', padding: '40px 32px' }}>
                 <p style={{ fontSize: '0.65rem', color: '#A38560', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>0{i + 1}</p>
@@ -129,19 +176,20 @@ export default function DigitalPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section style={{ background: '#090909', padding: '80px 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto', padding: '0 48px', textAlign: 'center' }}>
           <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 3.5rem)', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', marginBottom: '24px' }}>Start Your Project</h2>
-          <p style={{ color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: '40px' }}>Ready to elevate your brand story? Let's discuss your vision.</p>
+          <p style={{ color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: '40px' }}>Ready to elevate your brand story? Let&apos;s discuss your vision.</p>
           <a href="mailto:digital@benefit.media" className="btn-primary" style={{ padding: '14px 40px' }}>Get a Quote</a>
         </div>
       </section>
 
+      {/* ── FOOTER ── */}
       <footer style={{ background: '#000000', borderTop: '1px solid rgba(255,255,255,0.07)', padding: '48px 0' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <img src="/logo.svg" alt="Benefit" style={{ height: '20px' }} />
-          <p style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.2)' }}>© 2025 Benefit. All rights reserved.</p>
+          <p style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.2)' }}>© 2026 Benefit. All rights reserved.</p>
         </div>
       </footer>
     </main>

@@ -106,7 +106,7 @@ export default function Home() {
               {t('hero.cta_partner')} <span style={{ fontWeight: 300 }}>→</span>
             </a>
           </div>
-          <div className="hero-animate" style={{ marginTop: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <div className="hero-animate" style={{ marginTop: '64px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
             <span style={{ fontSize: '0.56rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)' }}>{t('hero.scroll')}</span>
             <div style={{ width: '1px', height: '44px', background: 'linear-gradient(to bottom, rgba(255,255,255,0.28), transparent)' }} />
           </div>
@@ -276,7 +276,7 @@ export default function Home() {
             </a>
           </div>
           <div className="reveal-card" style={{ position: 'relative', minHeight: '600px' }}>
-            <Image src="/Gallery/Benefit/Category/magazine1.png" alt="Benefit Magazine" fill sizes="40vw" style={{ objectFit: 'cover', objectPosition: 'center' }} />
+            <Image src="/Gallery/Benefit/Category/magazine1.png" alt="Benefit Magazine" fill priority sizes="40vw" style={{ objectFit: 'cover', objectPosition: 'center' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #000000 0%, transparent 35%)', pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, #000000 10%, rgba(0,0,0,0.55) 55%, transparent 100%)', pointerEvents: 'none' }} />
           </div>
@@ -294,12 +294,20 @@ export default function Home() {
               <span style={{ display: 'block', fontSize: 'clamp(3rem, 5.5vw, 6.5rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1, color: '#FFFFFF' }}>{t('talks.label')}</span>
               <span style={{ display: 'block', fontSize: 'clamp(3rem, 5.5vw, 6.5rem)', fontWeight: 300, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1, color: '#FFFFFF' }}>{t('talks.sublabel')}</span>
             </h2>
-            <p className="reveal-text" style={{ color: 'rgba(255,255,255,0.72)', lineHeight: 1.78, marginBottom: '24px', maxWidth: '520px', fontSize: '1rem' }}>{t('talks.body')}</p>
-            <div className="reveal-text" style={{ marginBottom: '36px' }}>
-              {[t('talks.bullet1'), t('talks.bullet2')].map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem' }}>
-                  <div style={{ width: '4px', height: '4px', background: 'rgba(255,255,255,0.3)', borderRadius: '50%', flexShrink: 0 }} />
-                  {item}
+            <p className="reveal-text" style={{ color: 'rgba(255,255,255,0.72)', lineHeight: 1.78, marginBottom: '36px', maxWidth: '520px', fontSize: '1rem' }}>{t('talks.body')}</p>
+            <div className="reveal-text" style={{ marginBottom: '36px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+              {[
+                'Official part of the event with speakers',
+                'Networking zone',
+                'After Party',
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '24px', padding: '20px 0', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                  <span style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.28)', flexShrink: 0, width: '24px' }}>
+                    0{i + 1}
+                  </span>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '-0.01em' }}>
+                    {item}
+                  </span>
                 </div>
               ))}
             </div>
@@ -308,7 +316,7 @@ export default function Home() {
             </a>
           </div>
           <div className="reveal-card" style={{ position: 'relative', minHeight: '600px' }}>
-            <Image src="/Gallery/Benefit/Category/2.png" alt="Benefit Talks" fill sizes="40vw" style={{ objectFit: 'cover', objectPosition: 'center' }} />
+            <Image src="/Gallery/Benefit/Category/2.png" alt="Benefit Talks" fill priority sizes="40vw" style={{ objectFit: 'cover', objectPosition: 'center' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #000000 0%, transparent 35%)', pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(to top, #000000 10%, rgba(0,0,0,0.55) 55%, transparent 100%)', pointerEvents: 'none' }} />
           </div>
@@ -445,15 +453,50 @@ export default function Home() {
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px', marginBottom: '28px' }}>
             {[
-              { cat: 'Business', title: "Georgia's Most Influential Audience" },
-              { cat: 'Events', title: 'Benefit Talks: Where Ideas Meet Investment' },
-              { cat: 'Lifestyle', title: 'Digital & Video: Brand Storytelling' },
+              {
+                cat: 'Business',
+                date: 'April 10, 2026',
+                read: '5 min read',
+                title: "The Rise of Premium Media in the Caucasus",
+                excerpt: "How Georgia's most ambitious brands are shifting ad spend toward quality editorial environments — and why it's working.",
+                img: 'https://picsum.photos/seed/biz01/800/500',
+              },
+              {
+                cat: 'Events',
+                date: 'March 28, 2026',
+                read: '4 min read',
+                title: 'Inside Benefit Talks III: Where Deals Are Made',
+                excerpt: "350 executives. One evening. A look at the conversations, connections, and commitments that defined Georgia's most exclusive business gathering.",
+                img: 'https://picsum.photos/seed/biz02/800/500',
+              },
+              {
+                cat: 'Digital & Video',
+                date: 'March 14, 2026',
+                read: '6 min read',
+                title: 'Why Cinematic Brand Films Outperform Every Other Format',
+                excerpt: "Data from 40+ campaigns shows that story-led video drives 3× longer brand recall than performance ads — here's how to do it right.",
+                img: 'https://picsum.photos/seed/biz03/800/500',
+              },
             ].map((article, i) => (
-              <div key={i} className="reveal-card" style={{ background: '#FFFFFF' }}>
-                <div style={{ background: '#e0e0e0', aspectRatio: '16/10' }} />
-                <div style={{ padding: '24px' }}>
-                  <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(0,0,0,0.38)', marginBottom: '8px' }}>{article.cat}</p>
-                  <p style={{ fontSize: '0.92rem', fontWeight: 600, color: '#000000', lineHeight: 1.4 }}>{article.title}</p>
+              <div key={i} className="reveal-card" style={{ background: '#FFFFFF', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ aspectRatio: '16/10', overflow: 'hidden', flexShrink: 0 }}>
+                  <img
+                    src={article.img}
+                    alt={article.title}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
+                  />
+                </div>
+                <div style={{ padding: '24px 24px 28px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                    <p style={{ fontSize: '0.58rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#A38560', margin: 0 }}>{article.cat}</p>
+                    <div style={{ width: '1px', height: '10px', background: 'rgba(0,0,0,0.15)' }} />
+                    <p style={{ fontSize: '0.58rem', color: 'rgba(0,0,0,0.35)', letterSpacing: '0.04em', margin: 0 }}>{article.date}</p>
+                  </div>
+                  <p style={{ fontSize: '0.97rem', fontWeight: 700, color: '#000000', lineHeight: 1.35, marginBottom: '12px' }}>{article.title}</p>
+                  <p style={{ fontSize: '0.78rem', color: 'rgba(0,0,0,0.48)', lineHeight: 1.65, marginBottom: '20px', flex: 1 }}>{article.excerpt}</p>
+                  <p style={{ fontSize: '0.58rem', color: 'rgba(0,0,0,0.28)', letterSpacing: '0.06em', textTransform: 'uppercase', margin: 0 }}>{article.read}</p>
                 </div>
               </div>
             ))}
@@ -475,8 +518,8 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Full-width mesh grid — 6 cols × 5 rows */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', borderTop: '1px solid rgba(255,255,255,0.08)', borderLeft: '1px solid rgba(255,255,255,0.08)' }}>
+        {/* Full-width mesh grid — 2 cols mobile → 3 cols tablet → 6 cols desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', borderLeft: '1px solid rgba(255,255,255,0.08)' }}>
           {Array.from({ length: 30 }, (_, idx) => {
             const partner = PARTNER_MAP[idx];
             return (

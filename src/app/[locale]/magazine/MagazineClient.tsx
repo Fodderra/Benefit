@@ -27,12 +27,12 @@ const SPREADS = [
 
 // null = empty/placeholder cell
 const COVER_ARCHIVE: (string | null)[] = [
-  '/frames/Slider/1.png',
-  '/frames/Slider/4.png',
-  '/frames/Slider/7.png',
-  '/frames/Slider/10.png',
-  '/frames/Slider/2.png',
-  '/frames/Slider/5.png',
+  '/Gallery/Benefit/Magazine publishs/Bene_Mag1 (1).png',
+  '/Gallery/Benefit/Magazine publishs/Bene_Mag1 (2).png',
+  '/Gallery/Benefit/Magazine publishs/Bene_Mag1 (3).png',
+  '/Gallery/Benefit/Magazine publishs/Bene_Mag1 (4).png',
+  '/Gallery/Benefit/Magazine publishs/Bene_Mag1 (5).png',
+  '/Gallery/Benefit/Magazine publishs/Bene_Mag1 (6).png',
   null,
   null,
 ];

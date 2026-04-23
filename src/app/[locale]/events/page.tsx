@@ -36,10 +36,12 @@ const STATIC_UPCOMING: EventItem[] = [
 ];
 
 const STATIC_PAST: EventItem[] = [
-  { _id: 'p1', title: 'Benefit Talks III', date: 'November 15, 2024', location: 'Biltmore Hotel Tbilisi', attendees: '350+', highlights: ['12 speakers', 'Live performance', 'Brand activations'], status: 'past' },
-  { _id: 'p2', title: 'Benefit Talks II', date: 'May 22, 2024', location: 'Sheraton Grand Tbilisi', attendees: '280+', highlights: ['8 speakers', 'Panel discussion', 'Gala dinner'], status: 'past' },
-  { _id: 'p3', title: 'Benefit Talks I', date: 'October 18, 2023', location: 'Radisson Blu Iveria', attendees: '200+', highlights: ['6 speakers', 'Networking', 'Press coverage'], status: 'past' },
-  { _id: 'p4', title: 'Benefit Launch Event', date: 'March 5, 2023', location: 'Fabrika, Tbilisi', attendees: '150+', highlights: ['Brand reveal', 'Magazine launch', 'VIP cocktail'], status: 'past' },
+  { _id: 'p1', title: 'Benefit Talks III', date: 'November 15, 2024', location: 'Biltmore Hotel Tbilisi', attendees: '350+', highlights: ['12 speakers', 'Live performance', 'Brand activations'], status: 'past', thumbnail: 'https://picsum.photos/seed/benefit1/800/600' },
+  { _id: 'p2', title: 'Benefit Talks II', date: 'May 22, 2024', location: 'Sheraton Grand Tbilisi', attendees: '280+', highlights: ['8 speakers', 'Panel discussion', 'Gala dinner'], status: 'past', thumbnail: 'https://picsum.photos/seed/benefit2/800/600' },
+  { _id: 'p3', title: 'Benefit Talks I', date: 'October 18, 2023', location: 'Radisson Blu Iveria', attendees: '200+', highlights: ['6 speakers', 'Networking', 'Press coverage'], status: 'past', thumbnail: 'https://picsum.photos/seed/benefit3/800/600' },
+  { _id: 'p4', title: 'Benefit Launch Event', date: 'March 5, 2023', location: 'Fabrika, Tbilisi', attendees: '150+', highlights: ['Brand reveal', 'Magazine launch', 'VIP cocktail'], status: 'past', thumbnail: 'https://picsum.photos/seed/benefit4/800/600' },
+  { _id: 'p5', title: 'Business Leaders Forum', date: 'September 9, 2023', location: 'Marriott Tbilisi', attendees: '180+', highlights: ['CEO roundtable', 'Fireside chat', 'Awards'], status: 'past', thumbnail: 'https://picsum.photos/seed/benefit5/800/600' },
+  { _id: 'p6', title: 'Benefit Gala Dinner 2023', date: 'December 8, 2023', location: 'Courtyard Tbilisi', attendees: '220+', highlights: ['Black tie', 'Live music', 'Charity auction'], status: 'past', thumbnail: 'https://picsum.photos/seed/benefit6/800/600' },
 ];
 
 export default async function EventsPage() {
@@ -60,8 +62,10 @@ export default async function EventsPage() {
         coverImage: e.coverImage ?? null,
         tags: [],
       }));
-      upcoming = mapped.filter(e => e.status === 'upcoming');
-      past = mapped.filter(e => e.status === 'past');
+      const sanityUpcoming = mapped.filter(e => e.status === 'upcoming');
+      const sanityPast     = mapped.filter(e => e.status === 'past');
+      if (sanityUpcoming.length > 0) upcoming = sanityUpcoming;
+      if (sanityPast.length > 0)     past     = sanityPast;
     }
   } catch {
     // Sanity not configured yet — show static content

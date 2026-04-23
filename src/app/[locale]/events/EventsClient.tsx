@@ -12,6 +12,7 @@ export interface EventItem {
   status: 'upcoming' | 'past';
   registrationUrl?: string;
   coverImage?: { asset?: { url?: string } } | null;
+  thumbnail?: string;
   tags?: string[];
   attendees?: string;
   highlights?: string[];
@@ -184,40 +185,38 @@ export default function EventsClient({ upcoming, past }: { upcoming: EventItem[]
           <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: '48px' }}>
             Past Events
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '12px' }}>
             {past.map(ev => {
-              const img = ev.coverImage?.asset?.url;
+              const bgImg = ev.thumbnail || ev.coverImage?.asset?.url;
               return (
-                <div key={ev._id} className="past-card" style={{ background: '#080808', border: '1px solid rgba(255,255,255,0.07)' }}>
-                  <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: '#111', position: 'relative' }}>
-                    {img ? (
-                      <img
-                        src={img}
-                        alt={ev.title}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(0.2)', transition: 'transform 0.5s ease, filter 0.3s ease' }}
-                        onMouseEnter={e => { const el = e.currentTarget as HTMLImageElement; el.style.transform = 'scale(1.05)'; el.style.filter = 'grayscale(0)'; }}
-                        onMouseLeave={e => { const el = e.currentTarget as HTMLImageElement; el.style.transform = 'scale(1)'; el.style.filter = 'grayscale(0.2)'; }}
-                      />
-                    ) : (
-                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #0d0d0d, #1a1a1a)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <span style={{ fontSize: '0.56rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.08)' }}>Event</span>
-                      </div>
-                    )}
-                    {ev.attendees && (
-                      <div style={{ position: 'absolute', bottom: '12px', right: '12px', background: 'rgba(0,0,0,0.75)', padding: '4px 10px' }}>
-                        <span style={{ fontSize: '0.56rem', color: '#A38560', fontWeight: 700, letterSpacing: '0.1em' }}>{ev.attendees}</span>
-                      </div>
-                    )}
-                  </div>
-                  <div style={{ padding: '24px' }}>
-                    <p style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.25)', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '8px' }}>
+                <div
+                  key={ev._id}
+                  className="past-card"
+                  style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', cursor: 'default', transition: 'transform 0.4s ease',
+                    background: bgImg ? `url(${bgImg}) center/cover no-repeat` : 'linear-gradient(135deg, #0d0d0d, #1a1a1a)' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.02)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)'; }}
+                >
+                  {/* dark gradient overlay */}
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)', transition: 'background 0.3s' }} />
+
+                  {/* attendees badge */}
+                  {ev.attendees && (
+                    <div style={{ position: 'absolute', top: '14px', right: '14px', background: 'rgba(0,0,0,0.7)', padding: '4px 10px', backdropFilter: 'blur(4px)' }}>
+                      <span style={{ fontSize: '0.56rem', color: '#A38560', fontWeight: 700, letterSpacing: '0.1em' }}>{ev.attendees}</span>
+                    </div>
+                  )}
+
+                  {/* text at bottom */}
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 18px' }}>
+                    <p style={{ fontSize: '0.56rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '6px' }}>
                       {ev.date}{ev.location ? ` · ${ev.location}` : ''}
                     </p>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.01em', marginBottom: '12px' }}>{ev.title}</h3>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.01em', marginBottom: ev.highlights && ev.highlights.length > 0 ? '10px' : 0 }}>{ev.title}</h3>
                     {ev.highlights && ev.highlights.length > 0 && (
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {ev.highlights.map(h => (
-                          <span key={h} style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.28)', letterSpacing: '0.04em' }}>· {h}</span>
+                          <span key={h} style={{ fontSize: '0.56rem', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.04em' }}>· {h}</span>
                         ))}
                       </div>
                     )}

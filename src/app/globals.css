@@ -182,3 +182,33 @@ p {
 .panorama-card {
   -webkit-box-reflect: below 3px -webkit-linear-gradient(transparent 58%, rgba(0,0,0,0.4));
 }
+
+/* ── Mobile optimisation ─────────────────────────────────────────────────── */
+
+/* Prevent any section from causing horizontal scroll on small screens */
+section, footer, nav {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Larger touch targets for buttons on mobile (≥ 48 px height per WCAG) */
+@media (max-width: 767px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    padding: 16px 28px;
+    min-height: 48px;
+    font-size: 0.8rem;
+  }
+
+  /* Hamburger tap area */
+  nav button[aria-label="Toggle menu"] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Partner grid cells — slightly shorter on mobile */
+  .partner-cell {
+    height: 80px !important;
+  }
+}
