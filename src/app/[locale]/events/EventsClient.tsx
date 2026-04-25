@@ -67,13 +67,36 @@ export default function EventsClient({ upcoming, past }: { upcoming: EventItem[]
       {/* ── PAGE TITLE ── */}
       <section style={{ paddingTop: '160px', paddingBottom: '80px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px' }}>
-          <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#A38560', marginBottom: '24px' }}>Benefit</p>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9em] uppercase" style={{ color: '#FFFFFF', marginBottom: '32px' }}>
-            Benefit<br />Talks
-          </h1>
-          <p style={{ color: 'rgba(255,255,255,0.55)', maxWidth: '520px', lineHeight: 1.7, fontSize: '1rem' }}>
-            High-level gatherings where industry leaders, entrepreneurs, and premium brands connect, exchange ideas, and create lasting partnerships.
-          </p>
+          <div className="flex flex-col md:flex-row" style={{ alignItems: 'center', gap: '60px' }}>
+
+            {/* Text block */}
+            <div style={{ flex: '1 1 50%' }}>
+              <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#A38560', marginBottom: '24px' }}>Benefit</p>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9em] uppercase" style={{ color: '#FFFFFF', marginBottom: '32px' }}>
+                Benefit<br />Talks
+              </h1>
+              <p style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontSize: '1rem' }}>
+                High-level gatherings where industry leaders, entrepreneurs, and premium brands connect, exchange ideas, and create lasting partnerships.
+              </p>
+            </div>
+
+            {/* Hero image */}
+            <div className="w-full md:w-auto" style={{ flex: '0 0 45%' }}>
+              <img
+                src="/Gallery/Benefit/Side Page photos/cont.png"
+                alt="Benefit Talks"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  display: 'block',
+                  borderRadius: '8px',
+                  boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
+
+          </div>
         </div>
       </section>
 

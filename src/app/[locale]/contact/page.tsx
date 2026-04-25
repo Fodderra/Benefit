@@ -21,13 +21,37 @@ export default function ContactPage() {
       {/* Hero */}
       <section style={{ paddingTop: '160px', paddingBottom: '80px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 48px' }}>
-          <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#A38560', marginBottom: '24px' }}>Benefit</p>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9em] uppercase" style={{ color: '#FFFFFF', marginBottom: '32px' }}>
-            {t('heading')}
-          </h1>
-          <p style={{ color: 'rgba(255,255,255,0.55)', maxWidth: '520px', lineHeight: 1.7, fontSize: '1rem' }}>
-            We're here to answer your questions and explore how we can elevate your brand within Georgia's premium ecosystem.
-          </p>
+          <div className="flex flex-col md:flex-row" style={{ alignItems: 'center', gap: '60px' }}>
+
+            {/* Text block */}
+            <div style={{ flex: '1 1 55%' }}>
+              <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#A38560', marginBottom: '24px' }}>Benefit</p>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9em] uppercase" style={{ color: '#FFFFFF', marginBottom: '32px' }}>
+                Get in Touch<br />With Us
+              </h1>
+              <p style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontSize: '1rem' }}>
+                We&apos;re here to answer your questions and explore how we can elevate your brand within Georgia&apos;s premium ecosystem.
+              </p>
+            </div>
+
+            {/* Hero image */}
+            <div className="w-full md:w-auto" style={{ flex: '0 0 40%', display: 'flex', justifyContent: 'center' }}>
+              <img
+                src="/Gallery/Benefit/Side Page photos/Benefit Characters _1  (4).png"
+                alt="Get in Touch"
+                style={{
+                  width: '100%',
+                  maxWidth: '450px',
+                  height: 'auto',
+                  display: 'block',
+                  borderRadius: '8px',
+                  boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -37,43 +61,91 @@ export default function ContactPage() {
 
           {/* Left: Info */}
           <div>
-            <div style={{ marginBottom: '48px' }}>
-              <p style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: '32px' }}>Contact Details</p>
-              {[
-                { label: 'Email', value: 'hello@benefit.media', href: 'mailto:hello@benefit.media' },
-                { label: 'Partners', value: 'partners@benefit.media', href: 'mailto:partners@benefit.media' },
-                { label: 'Events', value: 'events@benefit.media', href: 'mailto:events@benefit.media' },
-                { label: 'Phone', value: '+995 32 200 00 00', href: 'tel:+99532200000' },
-              ].map(c => (
-                <div key={c.label} style={{ marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  <p style={{ fontSize: '0.58rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: '6px' }}>{c.label}</p>
-                  <a href={c.href} style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', textDecoration: 'none', transition: 'color 0.2s' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}>
-                    {c.value}
+            {/* Section label + separator */}
+            <p style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#A38560', marginBottom: '20px' }}>Contact Details</p>
+            <div style={{ height: '1px', background: 'rgba(163,133,96,0.2)', marginBottom: '36px' }} />
+
+            {/* 2-column contact grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '32px', marginBottom: '48px' }}>
+
+              {/* Col 1 — General Inquiries */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                    {/* Mail icon */}
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A38560" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                    <p style={{ fontSize: '0.58rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#A38560', margin: 0 }}>General Inquiries</p>
+                  </div>
+                  <a href="mailto:hello@benefit.media"
+                    style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.88rem', textDecoration: 'none', transition: 'color 0.2s, border-color 0.2s', borderBottom: '1px solid transparent', paddingBottom: '1px' }}
+                    onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#A38560'; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; e.currentTarget.style.borderColor = 'transparent'; }}>
+                    hello@benefit.media
                   </a>
                 </div>
-              ))}
-            </div>
 
-            <div>
-              <p style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: '20px' }}>Office</p>
-              <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.8, fontSize: '0.9rem' }}>
-                4 Marjanishvili Street<br />
-                Tbilisi, Georgia 0102
-              </p>
-              <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.28)', marginTop: '8px' }}>
-                Mon – Fri, 10:00 – 19:00
-              </p>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                    {/* Briefcase icon */}
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A38560" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12.01"/>
+                    </svg>
+                    <p style={{ fontSize: '0.58rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#A38560', margin: 0 }}>Partnerships</p>
+                  </div>
+                  <a href="mailto:partners@benefit.media"
+                    style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.88rem', textDecoration: 'none', transition: 'color 0.2s, border-color 0.2s', borderBottom: '1px solid transparent', paddingBottom: '1px' }}
+                    onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#A38560'; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; e.currentTarget.style.borderColor = 'transparent'; }}>
+                    partners@benefit.media
+                  </a>
+                </div>
+              </div>
+
+              {/* Col 2 — Office + Phone */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                    {/* Map pin icon */}
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A38560" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <p style={{ fontSize: '0.58rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#A38560', margin: 0 }}>Office Location</p>
+                  </div>
+                  <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.88rem', lineHeight: 1.75, margin: 0 }}>
+                    4 Marjanishvili Street<br />Tbilisi, Georgia 0102
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.72rem', marginTop: '4px' }}>Mon – Fri, 10:00 – 19:00</p>
+                </div>
+
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                    {/* Phone icon */}
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A38560" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.9 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.81 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.82 5.82l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <p style={{ fontSize: '0.58rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#A38560', margin: 0 }}>Phone</p>
+                  </div>
+                  <a href="tel:+99532200000"
+                    style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.88rem', textDecoration: 'none', transition: 'color 0.2s, border-color 0.2s', borderBottom: '1px solid transparent', paddingBottom: '1px' }}
+                    onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#A38560'; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; e.currentTarget.style.borderColor = 'transparent'; }}>
+                    +995 32 200 00 00
+                  </a>
+                </div>
+              </div>
+
             </div>
 
             {/* Social links */}
-            <div style={{ marginTop: '48px' }}>
-              <p style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: '16px' }}>Follow Us</p>
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <div style={{ paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+              <p style={{ fontSize: '0.58rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#A38560', marginBottom: '16px' }}>Follow Us</p>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                 {['Instagram', 'Facebook', 'LinkedIn', 'YouTube'].map(s => (
-                  <a key={s} href="#" style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', border: '1px solid rgba(255,255,255,0.1)', padding: '7px 14px', textDecoration: 'none', transition: 'all 0.2s' }}
-                    onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'; }}
+                  <a key={s} href="#"
+                    style={{ fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', border: '1px solid rgba(255,255,255,0.1)', padding: '7px 14px', textDecoration: 'none', transition: 'all 0.2s' }}
+                    onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(163,133,96,0.5)'; }}
                     onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.35)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}>
                     {s}
                   </a>
