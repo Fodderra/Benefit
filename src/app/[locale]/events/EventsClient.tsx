@@ -83,7 +83,7 @@ export default function EventsClient({ upcoming, past }: { upcoming: EventItem[]
             {/* Hero image */}
             <div className="w-full md:w-auto" style={{ flex: '0 0 45%' }}>
               <img
-                src="/Gallery/Benefit/Side Page photos/cont.png"
+                src="/Gallery/Benefit/Side Page photos/talks1.png.png"
                 alt="Benefit Talks"
                 style={{
                   width: '100%',
