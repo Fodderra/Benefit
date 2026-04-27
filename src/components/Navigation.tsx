@@ -71,7 +71,9 @@ export function Navigation() {
 
         {/* Right cluster: locale toggle + hamburger */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Language switcher — hidden while site is English-only; remove 'hidden' class to re-enable */}
           <button
+            className="hidden"
             onClick={toggleLocale}
             style={{
               color: '#FFFFFF', fontSize: '0.7rem', fontWeight: 600,

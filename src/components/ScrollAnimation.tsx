@@ -6,62 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface CalloutProps {
-  side: 'left' | 'right';
-  top: string;
-  title: string;
-  subtitle: string;
-  scrollStart: number;
-  scrollEnd: number;
-  containerRef: React.RefObject<HTMLDivElement | null>;
-}
-
-function Callout({ side, top, title, subtitle, scrollStart, scrollEnd, containerRef }: CalloutProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!ref.current || !containerRef.current) return;
-
-    gsap.set(ref.current, { x: side === 'left' ? -20 : 20 });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: `top+=${scrollStart * 100}% top`,
-        end: `top+=${scrollEnd * 100}% top`,
-        scrub: 1,
-      },
-    });
-
-    tl.to(ref.current, { x: 0, duration: 0.3 })
-      .to(ref.current, { x: 0, duration: 0.4 }, '>+=0.3')
-      .to(ref.current, { x: side === 'left' ? -20 : 20, duration: 0.3 });
-
-    return () => {
-      tl.kill();
-    };
-  }, [side, scrollStart, scrollEnd, containerRef]);
-
-  return (
-    <div
-      ref={ref}
-      className="absolute pointer-events-none"
-      style={{
-        top,
-        left: side === 'left' ? '3%' : 'auto',
-        right: side === 'right' ? '3%' : 'auto',
-      }}
-    >
-      <div className={`flex items-center gap-3 ${side === 'right' ? 'flex-row-reverse' : ''}`}>
-        <div className={`${side === 'right' ? 'text-left' : 'text-right'}`}>
-          <p className="section-label" style={{ color: '#A38560' }}>{title}</p>
-          <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.02em' }}>{subtitle}</p>
-        </div>
-        <div className="w-24 border-t border-dashed" style={{ borderColor: 'rgba(163,133,96,0.5)' }} />
-      </div>
-    </div>
-  );
-}
 
 interface ScrollAnimationProps {
   frameDir: string;
@@ -173,42 +117,6 @@ export function ScrollAnimation({ frameDir, frameCount }: ScrollAnimationProps) 
         }}
       />
 
-      <Callout
-        side="left"
-        top="35%"
-        title="Print Excellence"
-        subtitle="Quarterly curated business content"
-        scrollStart={0.15}
-        scrollEnd={0.42}
-        containerRef={containerRef}
-      />
-      <Callout
-        side="right"
-        top="45%"
-        title="Premium Reach"
-        subtitle="5-star hotels · Airport lounges · Fine dining"
-        scrollStart={0.3}
-        scrollEnd={0.57}
-        containerRef={containerRef}
-      />
-      <Callout
-        side="left"
-        top="55%"
-        title="Benefit Talks"
-        subtitle="Exclusive high-level business events"
-        scrollStart={0.5}
-        scrollEnd={0.75}
-        containerRef={containerRef}
-      />
-      <Callout
-        side="right"
-        top="38%"
-        title="Digital Amplification"
-        subtitle="Integrated video campaigns · Social"
-        scrollStart={0.65}
-        scrollEnd={0.9}
-        containerRef={containerRef}
-      />
     </div>
   );
 }
